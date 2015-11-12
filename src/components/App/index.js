@@ -4,33 +4,41 @@ var React = require('react');
 
 module.exports = React.createClass({
   displayName: 'App',
-
+  
   getInitialState: function() {
     return {
-      total: 0
+      total: 0,
+      counters: []
     }
   },
   updateTotal: function (n) {
     this.setState({total: this.state.total + n});
   },
   addCounter: function (name) {
-    
+    var _counters = this.state.counters.slice();
+    _counters.push(name);
+    this.setState(
+      {counters: _counters}
+    );
   },
   render: function() {
+    var appContext = this;
     return (
       <div className="App">
         <h1 className="App__header">Counter App</h1>
-        <div>Total: {this.state.total}</div>
+        <h2>Total: {this.state.total}</h2>
         
-        <Counter name="Dogs" onChange={this.updateTotal} />
-        <Counter name="Cats" onChange={this.updateTotal} />
+        {this.state.counters.map(function (name) {
+          return (
+            <Counter name={name} onChange={appContext.updateTotal}/>
+          );
+        })}
         
         <AddCounter onAddCounter={this.addCounter}/>
       </div>
     );
   },
 });
-
 
 var Counter = React.createClass({
   getInitialState: function() {
@@ -59,12 +67,15 @@ var Counter = React.createClass({
 });
 
 var AddCounter = React.createClass({
-  handleSubmit: function () {
-    this.props.onAddCounter({this.refs.name});
+  handleSubmit: function (e) {
+    e.preventDefault();
+    this.props.onAddCounter(this.refs.name.value.trim());
+    this.refs.name.value = '';
   },
   render: function () {
     return (
       <form className="add-counter" onSubmit={this.handleSubmit}>
+        <label>New Counter</label>
         <input type="text" placeholder="Counter name" ref="name" />
         <input type="submit" value="Add" />
       </form>
