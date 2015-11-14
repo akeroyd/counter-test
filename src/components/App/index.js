@@ -1,6 +1,8 @@
 "use strict";
 
 var React = require('react');
+var Counter = require('./counter.js');
+var AddCounter = require('./addcounter.js');
 
 module.exports = React.createClass({
   displayName: 'App',
@@ -40,45 +42,3 @@ module.exports = React.createClass({
   },
 });
 
-var Counter = React.createClass({
-  getInitialState: function() {
-    return {
-      count: 0
-    };
-  },
-  handlePlus: function(e) {
-    this.changeCount(1);
-  },
-  handleMinus: function(e) {
-    this.changeCount(-1);
-  },
-  changeCount: function(n) {
-    this.setState({count: this.state.count + n});
-    this.props.onChange(n);
-  },
-  render: function () {
-    return (
-      <div className="counter">
-        <label>{this.props.name}</label>: {this.state.count}
-        <button onClick={this.handlePlus}>+</button>
-        <button onClick={this.handleMinus}>-</button>
-      </div>);
-  }
-});
-
-var AddCounter = React.createClass({
-  handleSubmit: function (e) {
-    e.preventDefault();
-    this.props.onAddCounter(this.refs.name.value.trim());
-    this.refs.name.value = '';
-  },
-  render: function () {
-    return (
-      <form className="add-counter" onSubmit={this.handleSubmit}>
-        <label>New Counter</label>
-        <input type="text" placeholder="Counter name" ref="name" />
-        <input type="submit" value="Add" />
-      </form>
-    );
-  }
-});
