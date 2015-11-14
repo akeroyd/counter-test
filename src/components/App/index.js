@@ -59,7 +59,7 @@ var Counter = React.createClass({
   render: function () {
     return (
       <div className="counter">
-        {this.props.name}: {this.state.count}
+        <label>{this.props.name}</label>: {this.state.count}
         <button onClick={this.handlePlus}>+</button>
         <button onClick={this.handleMinus}>-</button>
       </div>);
