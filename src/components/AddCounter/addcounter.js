@@ -6,7 +6,10 @@ module.exports = React.createClass({
   displayName: 'AddCounter',
   handleSubmit: function (e) {
     e.preventDefault();
-    this.props.onAddCounter(this.refs.name.value.trim());
+    
+    if (this.refs.name.value.trim() !== '') {
+      this.props.onAddCounter(this.refs.name.value.trim());
+    }
     this.refs.name.value = '';
   },
   render: function () {

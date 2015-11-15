@@ -1,8 +1,8 @@
 "use strict";
 
 var React = require('react');
-var Counter = require('./counter.js');
-var AddCounter = require('./addcounter.js');
+var Counter = require('../Counter/counter.js');
+var AddCounter = require('../AddCounter/addcounter.js');
 
 module.exports = React.createClass({
   displayName: 'App',
